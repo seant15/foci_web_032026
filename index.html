@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FOCI 佛慈 — Ancient Wisdom, Modern Wellness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #F5F0E8;
+      --warm:     #EDE4D4;
+      --bark:     #5C4033;
+      --earth:    #8B6347;
+      --moss:     #4A5C3A;
+      --sage:     #7A8C6A;
+      --gold:     #B8965A;
+      --charcoal: #1E1A17;
+      --mist:     #F9F6F0;
+      --red:      #8B2020;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--mist);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(249,246,240,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(92,64,51,0.08);
+      transition: padding 0.3s;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 42px; height: 42px; object-fit: contain; border-radius: 50%;
+    }
+    .nav-logo-text {
+      display: flex; flex-direction: column; line-height: 1.1;
+    }
+    .nav-logo-text .en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 600; letter-spacing: 0.08em;
+      color: var(--bark);
+    }
+    .nav-logo-text .zh {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 11px; letter-spacing: 0.15em; color: var(--earth);
+    }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none; font-size: 13px; font-weight: 500;
+      letter-spacing: 0.06em; color: var(--charcoal);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--earth); }
+    .nav-cta {
+      padding: 10px 24px;
+      background: var(--bark); color: var(--cream);
+      border: none; border-radius: 2px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--earth); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 120px 48px 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 70% 50%, rgba(74,92,58,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 30%, rgba(184,150,90,0.06) 0%, transparent 60%),
+        linear-gradient(160deg, var(--mist) 0%, var(--warm) 50%, var(--cream) 100%);
+    }
+    /* decorative ink strokes */
+    .hero-bg::before {
+      content: '';
+      position: absolute; right: 5%; top: 10%;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      border: 1px solid rgba(92,64,51,0.06);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; right: 12%; top: 18%;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      border: 1px solid rgba(92,64,51,0.08);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 640px;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--earth);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 32px; height: 1px; background: var(--gold);
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 7vw, 88px);
+      font-weight: 300; line-height: 1.05;
+      color: var(--charcoal); margin-bottom: 8px;
+    }
+    .hero-title em {
+      font-style: italic; color: var(--earth);
+    }
+    .hero-title-zh {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 300; letter-spacing: 0.25em;
+      color: var(--earth); margin-bottom: 32px; display: block;
+    }
+    .hero-desc {
+      font-size: 16px; font-weight: 300; line-height: 1.8;
+      color: #4A3F35; max-width: 480px; margin-bottom: 48px;
+    }
+    .hero-actions {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .btn-primary {
+      padding: 16px 40px;
+      background: var(--bark); color: var(--cream);
+      border: none; border-radius: 2px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--earth); transform: translateY(-1px); }
+    .btn-secondary {
+      padding: 16px 40px;
+      background: transparent; color: var(--bark);
+      border: 1.5px solid var(--bark); border-radius: 2px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { background: var(--bark); color: var(--cream); }
+    .hero-stats {
+      position: absolute; bottom: 60px; right: 48px; z-index: 1;
+      display: flex; gap: 48px;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-weight: 600; color: var(--bark); line-height: 1;
+    }
+    .stat-label {
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--earth); margin-top: 4px;
+    }
+    /* floating seal */
+    .hero-seal {
+      position: absolute; right: 48px; top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .hero-seal img {
+      width: 200px; height: 200px; object-fit: contain;
+      opacity: 0.18;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(-50%) translateX(0); }
+      50%       { transform: translateY(calc(-50% - 12px)) translateX(4px); }
+    }
+
+    /* ─── DIVIDER ─── */
+    .section-divider {
+      display: flex; align-items: center; gap: 24px;
+      padding: 0 48px; margin: 0 auto;
+      max-width: 1200px;
+    }
+    .section-divider::before, .section-divider::after {
+      content: ''; flex: 1; height: 1px; background: rgba(92,64,51,0.15);
+    }
+    .divider-icon {
+      font-size: 18px; color: var(--gold); letter-spacing: 8px;
+    }
+
+    /* ─── SECTION SHARED ─── */
+    section { padding: 100px 48px; }
+    .section-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--sage);
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 16px;
+    }
+    .section-label::after {
+      content: ''; flex: 0 0 28px; height: 1px; background: var(--sage);
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4.5vw, 58px);
+      font-weight: 300; line-height: 1.1;
+      color: var(--charcoal); margin-bottom: 16px;
+    }
+    .section-title em { font-style: italic; color: var(--earth); }
+    .section-sub {
+      font-size: 15px; font-weight: 300; color: #6B5B4E;
+      line-height: 1.7; max-width: 500px;
+    }
+
+    /* ─── PRODUCTS ─── */
+    .products { background: var(--cream); }
+    .products-header {
+      max-width: 1200px; margin: 0 auto 64px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 24px;
+    }
+    .products-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+    }
+    .product-card {
+      background: var(--mist);
+      padding: 40px 32px;
+      display: flex; flex-direction: column;
+      transition: background 0.3s;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .product-card:hover { background: var(--warm); }
+    .product-card:hover::before { transform: scaleX(1); }
+    .product-tag {
+      display: inline-block;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; padding: 4px 10px;
+      border-radius: 1px; margin-bottom: 24px; align-self: flex-start;
+    }
+    .tag-coffee  { background: rgba(92,64,51,0.1);  color: var(--bark); }
+    .tag-herbal  { background: rgba(74,92,58,0.1);  color: var(--moss); }
+    .tag-detox   { background: rgba(139,32,32,0.08); color: var(--red); }
+    .tag-soothe  { background: rgba(184,150,90,0.12); color: #7A6020; }
+
+    .product-img-wrap {
+      width: 100%; aspect-ratio: 1;
+      background: var(--warm); border-radius: 2px;
+      overflow: hidden; margin-bottom: 28px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .product-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .product-card:hover .product-img-wrap img { transform: scale(1.04); }
+    .product-zh {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 13px; color: var(--earth); letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 600; color: var(--charcoal);
+      line-height: 1.2; margin-bottom: 12px;
+    }
+    .product-desc {
+      font-size: 13px; font-weight: 300; color: #6B5B4E;
+      line-height: 1.7; flex: 1; margin-bottom: 24px;
+    }
+    .product-benefits {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px;
+    }
+    .benefit-chip {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
+      padding: 4px 10px; border: 1px solid rgba(92,64,51,0.2);
+      border-radius: 50px; color: var(--earth);
+    }
+    .product-link {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--bark);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .product-link::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+    .product-card:hover .product-link::after { transform: translateX(4px); }
+
+    /* ─── BRAND STORY ─── */
+    .brand-story {
+      background: var(--charcoal);
+      color: var(--cream);
+    }
+    .brand-story-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center;
+    }
+    .brand-story .section-label { color: var(--gold); }
+    .brand-story .section-label::after { background: var(--gold); }
+    .brand-story .section-title { color: var(--cream); }
+    .brand-story .section-title em { color: var(--gold); }
+    .brand-story-body {
+      font-size: 15px; font-weight: 300; line-height: 1.9;
+      color: rgba(245,240,232,0.75); margin-bottom: 40px;
+    }
+    .brand-story-body p + p { margin-top: 16px; }
+    .brand-pillars {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .pillar {
+      border-left: 2px solid var(--gold);
+      padding-left: 16px;
+    }
+    .pillar-title {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+    }
+    .pillar-desc {
+      font-size: 13px; font-weight: 300;
+      color: rgba(245,240,232,0.65); line-height: 1.6;
+    }
+    .brand-story-visual {
+      position: relative;
+    }
+    .brand-year-card {
+      background: rgba(184,150,90,0.08);
+      border: 1px solid rgba(184,150,90,0.2);
+      border-radius: 4px; padding: 48px;
+      text-align: center;
+    }
+    .brand-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 80px; font-weight: 300; color: var(--gold);
+      line-height: 1; display: block; margin-bottom: 8px;
+    }
+    .brand-year-label {
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(245,240,232,0.5);
+    }
+    .brand-seal-large {
+      display: block; width: 120px; margin: 32px auto 0;
+      opacity: 0.35;
+    }
+
+    /* ─── PHILOSOPHY ─── */
+    .philosophy {
+      background: var(--mist);
+    }
+    .philosophy-inner {
+      max-width: 1200px; margin: 0 auto;
+      text-align: center;
+    }
+    .philosophy-inner .section-label {
+      justify-content: center; margin-bottom: 16px;
+    }
+    .philosophy-inner .section-label::after { display: none; }
+    .philosophy-inner .section-label::before {
+      content: ''; flex: 0 0 28px; height: 1px; background: var(--sage);
+    }
+    .philosophy-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: rgba(92,64,51,0.1);
+      margin-top: 64px; border: 1px solid rgba(92,64,51,0.1);
+    }
+    .phil-item {
+      background: var(--mist); padding: 48px 32px; text-align: center;
+    }
+    .phil-icon {
+      font-size: 32px; margin-bottom: 20px;
+      display: block;
+    }
+    .phil-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 600; color: var(--bark);
+      margin-bottom: 12px;
+    }
+    .phil-zh {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 12px; color: var(--earth); letter-spacing: 0.15em;
+      margin-bottom: 16px; display: block;
+    }
+    .phil-desc {
+      font-size: 13px; font-weight: 300; color: #6B5B4E; line-height: 1.7;
+    }
+
+    /* ─── AI SECTION ─── */
+    .ai-section {
+      background: linear-gradient(135deg, var(--moss) 0%, #2E3D24 100%);
+      color: var(--cream);
+      text-align: center;
+    }
+    .ai-inner { max-width: 760px; margin: 0 auto; }
+    .ai-section .section-label { justify-content: center; color: rgba(245,240,232,0.6); }
+    .ai-section .section-label::after { background: rgba(245,240,232,0.3); }
+    .ai-section .section-title { color: var(--cream); text-align: center; }
+    .ai-section .section-title em { color: #A8CC70; }
+    .ai-desc {
+      font-size: 16px; font-weight: 300; line-height: 1.8;
+      color: rgba(245,240,232,0.75); max-width: 560px; margin: 0 auto 40px;
+    }
+    .ai-steps {
+      display: flex; justify-content: center; gap: 0;
+      margin: 48px 0; flex-wrap: wrap;
+    }
+    .ai-step {
+      padding: 0 32px; text-align: center;
+      border-right: 1px solid rgba(245,240,232,0.15);
+      flex: 1; min-width: 140px;
+    }
+    .ai-step:last-child { border-right: none; }
+    .ai-step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px; font-weight: 300; color: #A8CC70;
+      line-height: 1; display: block; margin-bottom: 12px;
+    }
+    .ai-step-label {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+      color: rgba(245,240,232,0.8);
+    }
+    .btn-light {
+      padding: 16px 40px;
+      background: var(--cream); color: var(--moss);
+      border: none; border-radius: 2px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      display: inline-block; transition: all 0.2s;
+    }
+    .btn-light:hover { background: #A8CC70; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials { background: var(--warm); }
+    .testimonials-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .testimonials-header { margin-bottom: 56px; }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--mist); padding: 36px;
+      border-radius: 2px;
+      border-left: 3px solid var(--gold);
+    }
+    .testimonial-stars { color: var(--gold); font-size: 14px; margin-bottom: 16px; }
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-style: italic; line-height: 1.6;
+      color: var(--charcoal); margin-bottom: 20px;
+    }
+    .testimonial-author {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--earth);
+    }
+    .testimonial-location {
+      font-size: 11px; color: #9B8B7E; margin-top: 2px;
+    }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      background: var(--bark);
+      padding: 80px 48px; text-align: center;
+    }
+    .cta-banner-inner { max-width: 700px; margin: 0 auto; }
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 56px); font-weight: 300;
+      color: var(--cream); line-height: 1.15; margin-bottom: 24px;
+    }
+    .cta-title em { font-style: italic; color: var(--gold); }
+    .cta-sub {
+      font-size: 15px; font-weight: 300;
+      color: rgba(245,240,232,0.7); margin-bottom: 40px; line-height: 1.7;
+    }
+    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--charcoal); color: rgba(245,240,232,0.5);
+      padding: 60px 48px 32px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo { margin-bottom: 16px; }
+    .footer-brand .nav-logo-text .en { color: var(--gold); }
+    .footer-brand .nav-logo-text .zh { color: rgba(245,240,232,0.4); }
+    .footer-tagline {
+      font-size: 13px; font-weight: 300; line-height: 1.7;
+      color: rgba(245,240,232,0.45); max-width: 260px;
+    }
+    .footer-col-title {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a {
+      text-decoration: none; font-size: 13px; font-weight: 300;
+      color: rgba(245,240,232,0.45); transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-bottom {
+      border-top: 1px solid rgba(245,240,232,0.08);
+      padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 12px; }
+    .footer-est {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; font-style: italic; color: rgba(245,240,232,0.3);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 72px 24px; }
+      .hero { padding: 100px 24px 60px; }
+      .hero-stats { right: 24px; bottom: 32px; gap: 28px; }
+      .hero-seal img { width: 140px; height: 140px; }
+      .brand-story-inner { grid-template-columns: 1fr; gap: 48px; }
+      .philosophy-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .ai-steps { gap: 0; }
+    }
+    @media (max-width: 600px) {
+      .hero-seal { display: none; }
+      .hero-stats { position: static; flex-direction: row; margin-top: 40px; gap: 24px; }
+      .footer-top { grid-template-columns: 1fr; }
+      .ai-step { border-right: none; border-bottom: 1px solid rgba(245,240,232,0.15); padding: 16px 0; }
+      .brand-pillars { grid-template-columns: 1fr; }
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1; transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <img src="foci.png" alt="FOCI 佛慈" />
+      <div class="nav-logo-text">
+        <span class="en">FOCI</span>
+        <span class="zh">佛慈制药</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#ai">Body Type AI</a></li>
+    </ul>
+    <a class="nav-cta" href="#products">Shop Now</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-content reveal">
+      <div class="hero-eyebrow">Est. 1929 · Lanzhou, China</div>
+      <h1 class="hero-title">
+        Ancient<br><em>Wisdom</em><br>Modern Wellness
+      </h1>
+      <span class="hero-title-zh">草本·康养·精准·科技</span>
+      <p class="hero-desc">
+        Premium herbal beverages crafted from authentic TCM traditions —
+        reimagined for the modern health-conscious lifestyle.
+        Now bringing 95 years of botanical expertise to Arizona.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#products">Explore Products</a>
+        <a class="btn-secondary" href="#ai">Free Body Type Analysis</a>
+      </div>
+    </div>
+    <div class="hero-seal">
+      <img src="foci.png" alt="" aria-hidden="true" />
+    </div>
+    <div class="hero-stats">
+      <div class="stat reveal">
+        <div class="stat-num">95</div>
+        <div class="stat-label">Years Heritage</div>
+      </div>
+      <div class="stat reveal" style="transition-delay:0.1s">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Natural Herbs</div>
+      </div>
+      <div class="stat reveal" style="transition-delay:0.2s">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Product Lines</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="section-divider">
+    <div class="divider-icon">✦ ✦ ✦</div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+    <div class="products-header reveal">
+      <div>
+        <div class="section-label">Our Products</div>
+        <h2 class="section-title">Functional<br><em>Herbal Drinks</em></h2>
+      </div>
+      <p class="section-sub">Each formula is rooted in classical TCM and crafted with real, whole ingredients — no fillers, no shortcuts.</p>
+    </div>
+    <div class="products-grid">
+
+      <!-- Product 1 -->
+      <div class="product-card reveal">
+        <span class="product-tag tag-coffee">Coffee</span>
+        <div class="product-img-wrap">
+          <img src="咖啡液image example/image.png" alt="Pocket Brew Coffee Shots" />
+        </div>
+        <div class="product-zh">卡片鲜萃咖啡液</div>
+        <div class="product-name">Pocket Brew Coffee Shots</div>
+        <p class="product-desc">Ultra-portable fresh-extract coffee in a slim card-sized sachet. Rich chocolate and nutty finish, 80% bitterness balanced with a clean 20% acidity. Your artisan café — in your pocket.</p>
+        <div class="product-benefits">
+          <span class="benefit-chip">Rich Aroma</span>
+          <span class="benefit-chip">No Sugar Added</span>
+          <span class="benefit-chip">Portable</span>
+        </div>
+        <a class="product-link" href="#">Learn More</a>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card reveal" style="transition-delay:0.1s">
+        <span class="product-tag tag-coffee">Nitrogen Brew</span>
+        <div class="product-img-wrap">
+          <img src="氮气咖啡液 image example/image.png" alt="Nitrogen Cold Brew Concentrate" />
+        </div>
+        <div class="product-zh">鲜萃浓缩氮气咖啡液</div>
+        <div class="product-name">Nitrogen Cold Brew Concentrate</div>
+        <p class="product-desc">Italian-style double-shot espresso with nitrogen infusion for a velvety, creamy texture. Mix with 300ml milk for the perfect latte, or enjoy straight for a bold, smooth hit of energy.</p>
+        <div class="product-benefits">
+          <span class="benefit-chip">Double Shot</span>
+          <span class="benefit-chip">Silky Smooth</span>
+          <span class="benefit-chip">16g × 6 packs</span>
+        </div>
+        <a class="product-link" href="#">Learn More</a>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card reveal" style="transition-delay:0.2s">
+        <span class="product-tag tag-detox">Detox Tea</span>
+        <div class="product-img-wrap">
+          <img src="小吊梨汤 image example/image copy.png" alt="Red Bean & Pearl Barley Detox Tea" />
+        </div>
+        <div class="product-zh">红豆薏米真材实料茶包</div>
+        <div class="product-name">Red Bean & Pearl Barley Detox Tea</div>
+        <p class="product-desc">A time-honoured TCM formula for clearing dampness and supporting circulation. Each bag contains 10g+ of whole, real ingredients — crafted in our own GMP-certified facility with no fillers.</p>
+        <div class="product-benefits">
+          <span class="benefit-chip">De-bloat</span>
+          <span class="benefit-chip">Circulation</span>
+          <span class="benefit-chip">10g+ per bag</span>
+        </div>
+        <a class="product-link" href="#">Learn More</a>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card reveal" style="transition-delay:0.3s">
+        <span class="product-tag tag-soothe">Herbal Soother</span>
+        <div class="product-img-wrap">
+          <img src="小吊梨汤 image example/image.png" alt="Snow Pear Herbal Soother" />
+        </div>
+        <div class="product-zh">小吊梨汤茶包</div>
+        <div class="product-name">Snow Pear Herbal Soother</div>
+        <p class="product-desc">A classic Qing Dynasty "cooling tea" recipe featuring snow pear, fritillaria, and licorice root. Naturally soothes dryness and inflammation. Your evening wind-down ritual in a teabag.</p>
+        <div class="product-benefits">
+          <span class="benefit-chip">Anti-inflammatory</span>
+          <span class="benefit-chip">Throat Soothe</span>
+          <span class="benefit-chip">Evening Ritual</span>
+        </div>
+        <a class="product-link" href="#">Learn More</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BRAND STORY -->
+  <section class="brand-story" id="story">
+    <div class="brand-story-inner">
+      <div class="reveal">
+        <div class="section-label">Our Heritage</div>
+        <h2 class="section-title">Since <em>1929</em>,<br>We've been<br>Healing Naturally</h2>
+        <div class="brand-story-body">
+          <p>FOCI 佛慈 was founded in Lanzhou, China in 1929 — at the crossroads of ancient Silk Road trade routes, where botanical knowledge from across Asia converged. For nearly a century, our master herbalists have refined formulas that work with your body's natural intelligence.</p>
+          <p>Now we're bringing that heritage to Arizona. Not as a novelty, but as a solution. As the West searches for functional alternatives to synthetic supplements and sugary drinks, FOCI offers something rare: proven efficacy, rooted in 2,000 years of documented practice.</p>
+        </div>
+        <div class="brand-pillars">
+          <div class="pillar">
+            <div class="pillar-title">Real Ingredients</div>
+            <div class="pillar-desc">Whole herbs, never powdered fillers or artificial extracts</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-title">TCM Formulation</div>
+            <div class="pillar-desc">Formulas guided by licensed TCM physicians</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-title">GMP Certified</div>
+            <div class="pillar-desc">In-house manufacturing with full traceability</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-title">Science Backed</div>
+            <div class="pillar-desc">Eurofins certified, international food safety awards</div>
+          </div>
+        </div>
+      </div>
+      <div class="brand-story-visual reveal" style="transition-delay:0.2s">
+        <div class="brand-year-card">
+          <span class="brand-year">1929</span>
+          <div class="brand-year-label">Year Founded · Lanzhou, China</div>
+          <img class="brand-seal-large" src="foci.png" alt="FOCI seal" />
+          <div style="margin-top:32px; padding-top:32px; border-top:1px solid rgba(184,150,90,0.2);">
+            <div style="display:flex; justify-content:space-around;">
+              <div style="text-align:center;">
+                <div style="font-family:'Cormorant Garamond',serif; font-size:32px; color:var(--gold);">PLF</div>
+                <div style="font-size:10px; letter-spacing:0.12em; color:rgba(245,240,232,0.4); margin-top:4px;">Gold Star Award</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-family:'Cormorant Garamond',serif; font-size:32px; color:var(--gold);">WOW</div>
+                <div style="font-size:10px; letter-spacing:0.12em; color:rgba(245,240,232,0.4); margin-top:4px;">Best Product Design</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-family:'Cormorant Garamond',serif; font-size:32px; color:var(--gold);">JFEX</div>
+                <div style="font-size:10px; letter-spacing:0.12em; color:rgba(245,240,232,0.4); margin-top:4px;">Best Product</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy" id="philosophy">
+    <div class="philosophy-inner">
+      <div class="reveal">
+        <div class="section-label">Philosophy</div>
+        <h2 class="section-title">The <em>Three Roots</em><br>of FOCI Wellness</h2>
+      </div>
+      <div class="philosophy-grid">
+        <div class="phil-item reveal">
+          <span class="phil-icon">🌿</span>
+          <div class="phil-title">Nourish</div>
+          <span class="phil-zh">滋养</span>
+          <p class="phil-desc">True wellness starts with what you put in your body. We source herbs at peak potency, treating them with the same care as culinary ingredients — because they are.</p>
+        </div>
+        <div class="phil-item reveal" style="transition-delay:0.1s">
+          <span class="phil-icon">⚖️</span>
+          <div class="phil-title">Balance</div>
+          <span class="phil-zh">平衡</span>
+          <p class="phil-desc">TCM sees health as harmony between opposing forces — energy and rest, warmth and cooling. Every FOCI formula is designed to restore, not override, your body's balance.</p>
+        </div>
+        <div class="phil-item reveal" style="transition-delay:0.2s">
+          <span class="phil-icon">🔬</span>
+          <div class="phil-title">Precision</div>
+          <span class="phil-zh">精准</span>
+          <p class="phil-desc">Ancient wisdom meets modern science. We verify every formula with third-party lab testing and AI-assisted body-type analysis to match the right product to the right person.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI SECTION -->
+  <section class="ai-section" id="ai">
+    <div class="ai-inner">
+      <div class="reveal">
+        <div class="section-label">Coming Soon · Arizona</div>
+        <h2 class="section-title">Discover Your<br><em>Body Type</em> in 90 Seconds</h2>
+        <p class="ai-desc">Our AI-powered TCM body constitution analysis uses facial recognition, tongue analysis, and a brief questionnaire to match you with the exact herbal formulas your body needs — guided by our licensed TCM physicians.</p>
+      </div>
+      <div class="ai-steps reveal" style="transition-delay:0.15s">
+        <div class="ai-step">
+          <span class="ai-step-num">01</span>
+          <div class="ai-step-label">AI Scan<br>90 Seconds</div>
+        </div>
+        <div class="ai-step">
+          <span class="ai-step-num">02</span>
+          <div class="ai-step-label">TCM Body<br>Type Profile</div>
+        </div>
+        <div class="ai-step">
+          <span class="ai-step-num">03</span>
+          <div class="ai-step-label">Personalised<br>Formula</div>
+        </div>
+        <div class="ai-step">
+          <span class="ai-step-num">04</span>
+          <div class="ai-step-label">Ongoing<br>Health Tracking</div>
+        </div>
+      </div>
+      <a class="btn-light reveal" href="#" style="transition-delay:0.3s">Join the Waitlist</a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="testimonials-inner">
+      <div class="testimonials-header reveal">
+        <div class="section-label">Reviews</div>
+        <h2 class="section-title">What People<br><em>Are Saying</em></h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"The Snow Pear Soother completely changed my evening routine. I was skeptical at first, but after two weeks my throat inflammation was gone — and I actually sleep better."</p>
+          <div class="testimonial-author">Sarah M.</div>
+          <div class="testimonial-location">Scottsdale, AZ</div>
+        </div>
+        <div class="testimonial-card reveal" style="transition-delay:0.1s">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"I've been buying the Pocket Brew sachets for three months. It replaced my daily Starbucks run completely. The flavor is so clean and rich — way better than anything in a capsule."</p>
+          <div class="testimonial-author">James T.</div>
+          <div class="testimonial-location">Chandler, AZ</div>
+        </div>
+        <div class="testimonial-card reveal" style="transition-delay:0.2s">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"As a TCM practitioner myself, I'm very picky about herbal products. The Red Bean & Barley tea is exactly what I'd recommend to my patients — real ingredients, proper ratios, no shortcuts."</p>
+          <div class="testimonial-author">Dr. Lin W.</div>
+          <div class="testimonial-location">Tempe, AZ</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <div class="cta-banner-inner reveal">
+      <h2 class="cta-title">Ready to Start Your<br><em>Wellness Journey?</em></h2>
+      <p class="cta-sub">Explore our full range of herbal beverages — crafted for modern life, grounded in ancient wisdom. Free shipping on orders over $40.</p>
+      <div class="cta-actions">
+        <a class="btn-light" href="#products">Shop All Products</a>
+        <a class="btn-secondary" href="#ai" style="color:var(--cream); border-color:rgba(245,240,232,0.4);">Try Body Type AI</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="nav-logo" href="#">
+            <img src="foci.png" alt="FOCI" />
+            <div class="nav-logo-text">
+              <span class="en">FOCI</span>
+              <span class="zh">佛慈制药 · Est. 1929</span>
+            </div>
+          </a>
+          <p class="footer-tagline">Ancient wisdom, modern wellness. Bringing 95 years of TCM herbalism to the American health-conscious consumer.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Products</div>
+          <ul class="footer-links">
+            <li><a href="#">Pocket Brew Coffee</a></li>
+            <li><a href="#">Nitrogen Cold Brew</a></li>
+            <li><a href="#">Red Bean Detox Tea</a></li>
+            <li><a href="#">Snow Pear Soother</a></li>
+            <li><a href="#">All Products</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <ul class="footer-links">
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Our Philosophy</a></li>
+            <li><a href="#">TCM Science</a></li>
+            <li><a href="#">Certifications</a></li>
+            <li><a href="#">Arizona Flagship</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Support</div>
+          <ul class="footer-links">
+            <li><a href="#">Body Type Quiz</a></li>
+            <li><a href="#">Wholesale</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 FOCI 佛慈制药. All rights reserved. These statements have not been evaluated by the FDA. Products are not intended to diagnose, treat, cure, or prevent any disease.</div>
+        <div class="footer-est">佛慈 · 1929</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Sticky nav shrink
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').style.padding =
+        window.scrollY > 60 ? '12px 48px' : '18px 48px';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FOCI 佛慈 — Ancient Wisdom, Modern Wellness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Archivo:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent:       #B8965A;
+      --accent-light: #D4B07A;
+      --accent-rgb:   184, 150, 90;
+      --bg:           #FAFAF7;
+      --bg2:          #F3EFE6;
+      --bark:         #5C4033;
+      --earth:        #8B6347;
+      --moss:         #4A5C3A;
+      --charcoal:     #1E1A17;
+      --text:         #1E1A17;
+      --text-2:       #6B5B4E;
+      --text-3:       #9B8B7E;
+      --card-bg:      rgba(92,64,51,0.04);
+      --card-border:  rgba(92,64,51,0.12);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    ::selection { background: var(--accent); color: #fff; }
+
+    html { scroll-behavior: auto; } /* MUST stay auto — no smooth for frame-accurate scroll */
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--bark); }
+
+    body {
+      font-family: 'Archivo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── STARSCAPE ─── */
+    #starscape {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
+      opacity: 0.25;
+    }
+
+    /* ─── SCROLL PROGRESS ─── */
+    #scrollProgress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      z-index: 10000;
+      transition: width 0.1s linear;
+    }
+
+    /* ─── LOADER ─── */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.6s ease;
+    }
+    .loader-content { text-align: center; }
+    .loader-logo { margin-bottom: 24px; }
+    .loader-logo img { width: 72px; height: 72px; object-fit: contain; opacity: 0.9; }
+    .loader-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 300; letter-spacing: 0.2em;
+      color: var(--bark); margin-bottom: 4px;
+    }
+    .loader-zh {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 11px; letter-spacing: 0.2em; color: var(--text-3);
+      margin-bottom: 28px; display: block;
+    }
+    .loader-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 12px;
+    }
+    .loader-bar-track {
+      width: 200px; height: 2px; background: var(--bg2);
+      border-radius: 2px; overflow: hidden; margin: 0 auto;
+    }
+    .loader-bar-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    /* ─── NAVBAR ─── */
+    #navbar {
+      position: fixed; top: 12px; left: 0; right: 0;
+      z-index: 1000;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-inner {
+      max-width: 100%; margin: 0 auto; padding: 14px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #navbar.nav-scrolled .nav-inner {
+      max-width: 860px;
+      background: rgba(250,250,247,0.85);
+      border: 1px solid rgba(92,64,51,0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 100px;
+      padding: 10px 28px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { width: 36px; height: 36px; object-fit: contain; border-radius: 50%; }
+    .nav-logo-text .en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; font-weight: 600; letter-spacing: 0.08em;
+      color: var(--bark); line-height: 1.1;
+    }
+    .nav-logo-text .zh {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 10px; letter-spacing: 0.15em; color: var(--earth);
+    }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a {
+      text-decoration: none; font-size: 13px; font-weight: 500;
+      letter-spacing: 0.04em; color: var(--text-2);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--bark); }
+    .nav-cta {
+      padding: 9px 22px;
+      background: var(--bark); color: #FAFAF7 !important;
+      border-radius: 100px; font-size: 12px !important;
+      font-weight: 600 !important; letter-spacing: 0.08em !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--earth) !important; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden; padding: 120px 48px 80px;
+      z-index: 1;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(160deg, var(--bg) 0%, var(--bg2) 60%, #EDE9DF 100%);
+    }
+    .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); pointer-events: none;
+    }
+    .orb-1 {
+      width: 520px; height: 520px;
+      background: var(--accent);
+      top: -180px; right: -80px; opacity: 0.08;
+    }
+    .orb-2 {
+      width: 380px; height: 380px;
+      background: var(--moss);
+      bottom: -120px; left: -80px; opacity: 0.06;
+    }
+    .grid-overlay {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(92,64,51,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(92,64,51,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 660px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--earth); margin-bottom: 24px;
+    }
+    .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 7vw, 92px); font-weight: 300;
+      line-height: 1.0; color: var(--charcoal); margin-bottom: 10px;
+    }
+    .hero-title em { font-style: italic; color: var(--earth); }
+    .hero-title-zh {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(16px, 2vw, 24px); font-weight: 300;
+      letter-spacing: 0.28em; color: var(--earth); margin-bottom: 28px; display: block;
+    }
+    .hero-sub {
+      font-size: 17px; font-weight: 300; line-height: 1.75;
+      color: var(--text-2); max-width: 500px; margin-bottom: 44px;
+    }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 15px 36px;
+      background: var(--bark); color: #FAFAF7;
+      border-radius: 4px; border: none;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none; cursor: pointer;
+      box-shadow: 0 4px 24px rgba(92,64,51,0.2);
+      transition: all 0.25s ease; display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--earth);
+      box-shadow: 0 6px 32px rgba(92,64,51,0.3);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      padding: 15px 36px;
+      background: transparent; color: var(--bark);
+      border-radius: 4px; border: 1.5px solid var(--bark);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none; cursor: pointer;
+      transition: all 0.25s ease; display: inline-block;
+    }
+    .btn-secondary:hover { background: var(--bark); color: #FAFAF7; }
+    .scroll-hint {
+      position: absolute; bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .scroll-arrow {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(0.7); }
+      50%       { opacity: 1;   transform: scaleY(1); }
+    }
+
+    /* ─── SCROLL ANIMATION ─── */
+    .scroll-animation {
+      height: 400vh; position: relative; z-index: 1;
+    }
+    .scroll-sticky {
+      position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden;
+      background: #FAFAF7;
+    }
+    #frameCanvas {
+      position: absolute; top: 0; left: 0;
+    }
+
+    /* ─── ANNOTATION CARDS ─── */
+    .annotation-card {
+      position: absolute; bottom: 8vh; left: 5vw;
+      max-width: 360px;
+      background: rgba(250,250,247,0.82);
+      border: 1px solid rgba(92,64,51,0.14);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 20px; padding: 28px;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none; z-index: 10;
+    }
+    .annotation-card.visible {
+      opacity: 1; transform: translateY(0); pointer-events: auto;
+    }
+    .card-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: var(--accent);
+      letter-spacing: 0.1em; margin-bottom: 10px;
+    }
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px; font-weight: 600; color: var(--bark);
+      margin-bottom: 8px; line-height: 1.2;
+    }
+    .card-desc {
+      font-size: 13px; color: var(--text-2);
+      line-height: 1.65; margin-bottom: 16px;
+    }
+    .card-stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px; font-weight: 700; color: var(--accent);
+    }
+    .card-stat-label {
+      font-size: 11px; color: var(--text-3);
+      display: block; margin-top: 2px; letter-spacing: 0.06em;
+    }
+
+    /* ─── SPECS ─── */
+    #specs {
+      background: var(--bg2); padding: 0; position: relative; z-index: 1;
+      border-top: 1px solid rgba(92,64,51,0.08);
+      border-bottom: 1px solid rgba(92,64,51,0.08);
+    }
+    .specs-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      max-width: 1040px; margin: 0 auto;
+      padding: 80px 32px; text-align: center;
+    }
+    .spec-item {
+      padding: 0 24px;
+      border-right: 1px solid rgba(92,64,51,0.1);
+    }
+    .spec-item:last-child { border-right: none; }
+    .spec-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(40px, 4vw, 56px); font-weight: 700;
+      color: var(--bark); display: block; line-height: 1;
+      transition: text-shadow 0.3s ease;
+    }
+    .spec-number.counting {
+      text-shadow: 0 0 24px rgba(184,150,90,0.35);
+    }
+    .spec-label {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-3);
+      margin-top: 10px; display: block;
+    }
+
+    /* ─── FEATURES ─── */
+    #features {
+      background: var(--bg); position: relative; z-index: 1;
+      padding: 100px 48px;
+    }
+    .features-header {
+      max-width: 1100px; margin: 0 auto 56px;
+    }
+    .section-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--earth);
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .section-eyebrow::after { content: ''; width: 28px; height: 1px; background: var(--accent); }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 54px); font-weight: 300;
+      color: var(--charcoal); line-height: 1.1;
+    }
+    .section-title em { font-style: italic; color: var(--earth); }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; max-width: 1100px; margin: 0 auto;
+    }
+    .feature-card {
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      border-radius: 16px; overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(184,150,90,0.35);
+      box-shadow: 0 12px 40px rgba(92,64,51,0.1);
+    }
+    .feature-img-wrap {
+      width: 100%; aspect-ratio: 1;
+      background: var(--bg2); overflow: hidden;
+    }
+    .feature-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .feature-card:hover .feature-img-wrap img { transform: scale(1.04); }
+    .feature-card-body { padding: 28px; flex: 1; }
+    .feature-tag {
+      display: inline-block;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 50px;
+      margin-bottom: 14px;
+    }
+    .tag-coffee  { background: rgba(92,64,51,0.08);  color: var(--bark); }
+    .tag-herbal  { background: rgba(74,92,58,0.1);   color: var(--moss); }
+    .tag-detox   { background: rgba(139,32,32,0.07); color: #8B2020; }
+    .tag-tech    { background: rgba(184,150,90,0.1); color: #7A6020; }
+    .feature-zh {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 11px; color: var(--text-3); letter-spacing: 0.12em;
+      margin-bottom: 5px; display: block;
+    }
+    .feature-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px; font-weight: 600; color: var(--bark);
+      margin-bottom: 10px; line-height: 1.2;
+    }
+    .feature-desc {
+      font-size: 13px; font-weight: 300; color: var(--text-2); line-height: 1.7;
+    }
+
+    /* ─── CTA ─── */
+    #cta {
+      background: var(--bark);
+      text-align: center; padding: 120px 32px;
+      position: relative; overflow: hidden; z-index: 1;
+    }
+    .cta-orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(100px); pointer-events: none;
+      width: 500px; height: 500px;
+      background: var(--accent-light);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      opacity: 0.12;
+    }
+    .cta-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .cta-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(250,250,247,0.5); margin-bottom: 20px;
+    }
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 5vw, 64px); font-weight: 300;
+      color: #FAFAF7; line-height: 1.1; margin-bottom: 20px;
+    }
+    .cta-title em { font-style: italic; color: var(--accent-light); }
+    .cta-sub {
+      font-size: 16px; font-weight: 300; line-height: 1.75;
+      color: rgba(250,250,247,0.65); margin-bottom: 44px; max-width: 520px; margin-left: auto; margin-right: auto;
+    }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta-light {
+      padding: 16px 40px;
+      background: #FAFAF7; color: var(--bark);
+      border-radius: 4px; border: none;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      transition: all 0.25s ease; display: inline-block;
+    }
+    .btn-cta-light:hover { background: var(--accent-light); transform: translateY(-2px); }
+    .btn-cta-outline {
+      padding: 16px 40px;
+      background: transparent; color: rgba(250,250,247,0.8);
+      border-radius: 4px; border: 1.5px solid rgba(250,250,247,0.3);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      transition: all 0.25s ease; display: inline-block;
+    }
+    .btn-cta-outline:hover { border-color: rgba(250,250,247,0.7); color: #FAFAF7; }
+
+    /* ─── TESTIMONIALS ─── */
+    #testimonials {
+      background: var(--bg2); padding: 100px 0;
+      position: relative; z-index: 1;
+      border-top: 1px solid rgba(92,64,51,0.08);
+    }
+    .testimonials-header {
+      max-width: 1100px; margin: 0 auto 52px; padding: 0 48px;
+    }
+    .testimonials-track {
+      display: flex; gap: 24px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: 12px 48px 48px;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      cursor: grab;
+    }
+    .testimonials-track:active { cursor: grabbing; }
+    .testimonials-track::-webkit-scrollbar { display: none; }
+    .testimonial-card {
+      min-width: 360px; flex-shrink: 0;
+      scroll-snap-align: start;
+      background: #FFFFFF;
+      border: 1px solid rgba(92,64,51,0.1);
+      border-top: 3px solid var(--accent);
+      border-radius: 12px; padding: 36px;
+      box-shadow: 0 4px 24px rgba(92,64,51,0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 36px rgba(92,64,51,0.13);
+    }
+    .testimonial-stars { color: var(--accent); font-size: 13px; margin-bottom: 16px; }
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px; font-style: italic; line-height: 1.6;
+      color: var(--charcoal); margin-bottom: 20px;
+    }
+    .testimonial-author {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--earth);
+    }
+    .testimonial-location { font-size: 11px; color: var(--text-3); margin-top: 3px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--charcoal); color: rgba(250,250,247,0.45);
+      padding: 60px 48px 36px; text-align: center; position: relative; z-index: 1;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 24px; }
+    .footer-logo img { width: 40px; height: 40px; object-fit: contain; border-radius: 50%; opacity: 0.8; }
+    .footer-logo .en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 300; letter-spacing: 0.15em; color: var(--accent-light);
+    }
+    .footer-links-row {
+      display: flex; justify-content: center; gap: 28px; margin-bottom: 28px;
+    }
+    .footer-links-row a {
+      text-decoration: none; font-size: 12px; font-weight: 400;
+      color: rgba(250,250,247,0.4); letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+    .footer-links-row a:hover { color: var(--accent-light); }
+    .footer-copy { font-size: 11px; line-height: 1.7; max-width: 700px; margin: 0 auto; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) { .scroll-animation { height: 300vh; } }
+    @media (max-width: 768px) {
+      .scroll-animation { height: 250vh; }
+      #hero { padding: 100px 24px 80px; }
+      #features { padding: 72px 24px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .specs-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .spec-item { border-right: none; border-bottom: 1px solid rgba(92,64,51,0.1); padding-bottom: 32px; }
+      .spec-item:last-child { border-bottom: none; }
+      .nav-links { display: none; }
+      .annotation-card {
+        bottom: 2vh; left: 2vw; right: 2vw; max-width: none;
+        padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+      }
+      .card-desc, .card-stat { display: none; }
+      .card-number { margin-bottom: 0; }
+      footer { padding: 48px 24px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BG -->
+  <canvas id="starscape"></canvas>
+  <div id="scrollProgress"></div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-content">
+      <div class="loader-logo"><img src="foci.png" alt="FOCI" /></div>
+      <div class="loader-brand">FOCI</div>
+      <span class="loader-zh">佛慈制药</span>
+      <div class="loader-label">Loading</div>
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill" id="loaderBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <img src="foci.png" alt="FOCI" />
+        <div class="nav-logo-text">
+          <div class="en">FOCI</div>
+          <div class="zh">佛慈制药</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Products</a>
+        <a href="#specs">Heritage</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#cta" class="nav-cta">Shop Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="grid-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Est. 1929 · Lanzhou, China</div>
+      <h1 class="hero-title">
+        Ancient<br><em>Wisdom</em><br>Modern Wellness
+      </h1>
+      <span class="hero-title-zh">草本·康养·精准·科技</span>
+      <p class="hero-sub">Premium herbal beverages crafted from 95 years of TCM tradition — reimagined for the modern health-conscious lifestyle.</p>
+      <div class="hero-buttons">
+        <a class="btn-primary" href="#features">Explore Products</a>
+        <a class="btn-secondary" href="#cta">Free Body Type AI</a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- SCROLL ANIMATION -->
+  <section class="scroll-animation" id="scrollAnim">
+    <div class="scroll-sticky">
+      <canvas id="frameCanvas"></canvas>
+
+      <!-- Annotation Card 1 -->
+      <div class="annotation-card" data-show="0.05" data-hide="0.28">
+        <div class="card-number">01 / HERB SOURCING</div>
+        <div class="card-body">
+          <h3 class="card-title">Real Whole Ingredients</h3>
+          <p class="card-desc">Every formula starts with hand-selected botanicals from certified farms — snow pear, red jujube, chrysanthemum, and goji at peak potency. No powders, no fillers.</p>
+          <div class="card-stat">
+            <span class="card-stat-number">10g+</span>
+            <span class="card-stat-label">Whole herbs per sachet</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Annotation Card 2 -->
+      <div class="annotation-card" data-show="0.32" data-hide="0.55">
+        <div class="card-number">02 / FORMULATION</div>
+        <div class="card-body">
+          <h3 class="card-title">TCM Physician-Guided</h3>
+          <p class="card-desc">Each blend is formulated by our licensed TCM physicians following classical herbal theory — balancing warming and cooling elements for your body's specific needs.</p>
+          <div class="card-stat">
+            <span class="card-stat-number">95</span>
+            <span class="card-stat-label">Years of botanical expertise</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Annotation Card 3 -->
+      <div class="annotation-card" data-show="0.60" data-hide="0.82">
+        <div class="card-number">03 / INNOVATION</div>
+        <div class="card-body">
+          <h3 class="card-title">Nitrogen Cold Brew Technology</h3>
+          <p class="card-desc">Our nitrogen infusion process creates a silky, velvety texture without dairy or additives. Double-shot concentrate — just add 300ml milk for a perfect latte.</p>
+          <div class="card-stat">
+            <span class="card-stat-number">2×</span>
+            <span class="card-stat-label">Espresso concentration</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Annotation Card 4 -->
+      <div class="annotation-card" data-show="0.86" data-hide="0.99">
+        <div class="card-number">04 / CERTIFIED</div>
+        <div class="card-body">
+          <h3 class="card-title">Award-Winning Quality</h3>
+          <p class="card-desc">Eurofins safety certified and internationally recognised. PLF Gold Star, WOW FOOD Best Product Design, JFEX Best Product — three awards, one standard of excellence.</p>
+          <div class="card-stat">
+            <span class="card-stat-number">3×</span>
+            <span class="card-stat-label">International awards</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECS -->
+  <section id="specs">
+    <div class="specs-grid">
+      <div class="spec-item" data-target="95" data-suffix="">
+        <span class="spec-number">0</span>
+        <span class="spec-label">Years Heritage</span>
+      </div>
+      <div class="spec-item" data-target="100" data-suffix="%">
+        <span class="spec-number">0</span>
+        <span class="spec-label">Natural Herbs</span>
+      </div>
+      <div class="spec-item" data-target="10" data-suffix="g+">
+        <span class="spec-number">0</span>
+        <span class="spec-label">Herbs Per Sachet</span>
+      </div>
+      <div class="spec-item" data-target="3" data-suffix="×">
+        <span class="spec-number">0</span>
+        <span class="spec-label">Award Wins</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="features-header">
+      <div class="section-eyebrow">Our Products</div>
+      <h2 class="section-title">Functional<br><em>Herbal Drinks</em></h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-img-wrap">
+          <img src="咖啡液image example/image.png" alt="Pocket Brew Coffee Shots" />
+        </div>
+        <div class="feature-card-body">
+          <span class="feature-tag tag-coffee">Coffee</span>
+          <span class="feature-zh">卡片鲜萃咖啡液</span>
+          <div class="feature-title">Pocket Brew Coffee Shots</div>
+          <p class="feature-desc">Ultra-portable fresh-extract coffee in a slim card sachet. 80% rich bitterness, 20% clean acidity. Your artisan café — in your pocket.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-img-wrap">
+          <img src="氮气咖啡液 image example/image.png" alt="Nitrogen Cold Brew" />
+        </div>
+        <div class="feature-card-body">
+          <span class="feature-tag tag-coffee">Nitrogen Brew</span>
+          <span class="feature-zh">鲜萃浓缩氮气咖啡液</span>
+          <div class="feature-title">Nitrogen Cold Brew</div>
+          <p class="feature-desc">Italian-style double-shot espresso with nitrogen infusion for a silky, creamy texture. Mix with 300ml milk for the perfect latte.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-img-wrap">
+          <img src="小吊梨汤 image example/image copy.png" alt="Snow Pear Herbal Soother" />
+        </div>
+        <div class="feature-card-body">
+          <span class="feature-tag tag-herbal">Herbal Soother</span>
+          <span class="feature-zh">小吊梨汤茶包</span>
+          <div class="feature-title">Snow Pear Herbal Soother</div>
+          <p class="feature-desc">A classic Qing Dynasty recipe featuring snow pear, fritillaria, and licorice root. Naturally soothes dryness and inflammation.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-img-wrap">
+          <img src="小吊梨汤 image example/image.png" alt="Red Bean & Barley Detox Tea" />
+        </div>
+        <div class="feature-card-body">
+          <span class="feature-tag tag-detox">Detox Tea</span>
+          <span class="feature-zh">红豆薏米茶包</span>
+          <div class="feature-title">Red Bean & Barley Detox Tea</div>
+          <p class="feature-desc">A TCM formula for clearing dampness and supporting circulation. 10g+ of whole, real ingredients per bag — zero fillers.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-img-wrap">
+          <img src="咖啡液image example/image copy.png" alt="Cinnamon Coffee" />
+        </div>
+        <div class="feature-card-body">
+          <span class="feature-tag tag-coffee">Functional Coffee</span>
+          <span class="feature-zh">肉桂鲜萃咖啡</span>
+          <div class="feature-title">Cinnamon Fresh-Brew Coffee</div>
+          <p class="feature-desc">Cinnamon-infused fresh-brew coffee — appetite-curbing and satisfying. Classic espresso beans with added cinnamon for a warming, functional kick.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-img-wrap">
+          <img src="氮气咖啡液 image example/image copy.png" alt="Double Shot Espresso" />
+        </div>
+        <div class="feature-card-body">
+          <span class="feature-tag tag-tech">Award Winner</span>
+          <span class="feature-zh">意式鲜萃咖啡</span>
+          <div class="feature-title">Italian Fresh-Brew Espresso</div>
+          <p class="feature-desc">Deep-roasted espresso concentrate with lingering finish and bright sweetness. PLF Gold Star, WOW Food Award & JFEX Best Product. 16g × 6 packs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="cta-orb"></div>
+    <div class="cta-content">
+      <div class="cta-eyebrow">Now Launching in Arizona</div>
+      <h2 class="cta-title">Start Your<br><em>Wellness Journey</em></h2>
+      <p class="cta-sub">Explore our full range of herbal beverages — crafted for modern life, grounded in 95 years of ancient wisdom. Free shipping on orders over $40.</p>
+      <div class="cta-buttons">
+        <a class="btn-cta-light" href="index.html">Shop All Products</a>
+        <a class="btn-cta-outline" href="index.html#ai">Try Body Type AI</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="testimonials-header">
+      <div class="section-eyebrow">Reviews</div>
+      <h2 class="section-title">What People<br><em>Are Saying</em></h2>
+    </div>
+    <div class="testimonials-track" id="testimonialsTrack">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The Snow Pear Soother completely changed my evening routine. After two weeks my throat inflammation was gone — and I actually sleep better."</p>
+        <div class="testimonial-author">Sarah M.</div>
+        <div class="testimonial-location">Scottsdale, AZ</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I've been buying the Pocket Brew sachets for three months. It replaced my daily Starbucks run. The flavor is so clean and rich — way better than any capsule."</p>
+        <div class="testimonial-author">James T.</div>
+        <div class="testimonial-location">Chandler, AZ</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"As a TCM practitioner myself, I'm very picky about herbal products. The Red Bean & Barley tea is exactly what I'd recommend to patients — real ingredients, proper ratios."</p>
+        <div class="testimonial-author">Dr. Lin W.</div>
+        <div class="testimonial-location">Tempe, AZ</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The nitrogen cold brew is unlike anything I've had. Smooth, creamy, no bitterness. I mix it with oat milk every morning — it's become a ritual."</p>
+        <div class="testimonial-author">Mia R.</div>
+        <div class="testimonial-location">Scottsdale, AZ</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"My whole family switched to FOCI herbal teas. The kids love the pear soother when they're sick. It's the only thing that works better than medicine for sore throats."</p>
+        <div class="testimonial-author">David K.</div>
+        <div class="testimonial-location">Mesa, AZ</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="foci.png" alt="FOCI" />
+      <span class="en">FOCI 佛慈制药 · Est. 1929</span>
+    </div>
+    <div class="footer-links-row">
+      <a href="index.html">Main Site</a>
+      <a href="#features">Products</a>
+      <a href="#cta">Shop</a>
+      <a href="index.html#story">Our Story</a>
+      <a href="index.html#ai">Body Type AI</a>
+    </div>
+    <p class="footer-copy">© 2026 FOCI 佛慈制药. All rights reserved. These statements have not been evaluated by the FDA. Products are not intended to diagnose, treat, cure, or prevent any disease.</p>
+  </footer>
+
+  <script>
+    // ─── STARSCAPE ───
+    (function() {
+      const canvas = document.getElementById('starscape');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+
+      function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.scale(dpr, dpr);
+        initStars();
+      }
+
+      function initStars() {
+        stars = [];
+        for (let i = 0; i < 120; i++) {
+          stars.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            radius: Math.random() * 1.2 + 0.3,
+            baseOpacity: Math.random() * 0.4 + 0.1,
+            driftX: (Math.random() - 0.5) * 0.015,
+            driftY: (Math.random() - 0.5) * 0.008,
+            twinkleSpeed: Math.random() * 0.0008 + 0.0003,
+            twinklePhase: Math.random() * Math.PI * 2
+          });
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        stars.forEach(s => {
+          s.x += s.driftX; s.y += s.driftY;
+          if (s.x < 0) s.x = window.innerWidth;
+          if (s.x > window.innerWidth) s.x = 0;
+          if (s.y < 0) s.y = window.innerHeight;
+          if (s.y > window.innerHeight) s.y = 0;
+          const twinkle = Math.sin(Date.now() * s.twinkleSpeed + s.twinklePhase);
+          const op = Math.max(0, s.baseOpacity + twinkle * 0.2);
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(184,150,90,${op})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      animate();
+    })();
+
+    // ─── SCROLL PROGRESS ───
+    const scrollProgress = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      scrollProgress.style.width = pct + '%';
+    }, { passive: true });
+
+    // ─── NAVBAR PILL ───
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('nav-scrolled', window.scrollY > 80);
+    }, { passive: true });
+
+    // ─── FRAME SEQUENCE ───
+    const frameCount = 120;
+    const frameCanvas = document.getElementById('frameCanvas');
+    const frameCtx = frameCanvas.getContext('2d');
+    const frames = [];
+    let loadedFrames = 0;
+    let currentFrame = -1;
+    let allLoaded = false;
+
+    const loaderBar = document.getElementById('loaderBar');
+    const loader = document.getElementById('loader');
+
+    function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      frameCanvas.width = window.innerWidth * dpr;
+      frameCanvas.height = window.innerHeight * dpr;
+      frameCanvas.style.width = window.innerWidth + 'px';
+      frameCanvas.style.height = window.innerHeight + 'px';
+      if (currentFrame >= 0) drawFrame(currentFrame);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function drawFrame(index) {
+      const img = frames[index];
+      if (!img || !img.complete) return;
+      const cw = frameCanvas.width;
+      const ch = frameCanvas.height;
+
+      // Fill white first so no letterbox gap shows
+      frameCtx.fillStyle = '#FAFAF7';
+      frameCtx.fillRect(0, 0, cw, ch);
+
+      const imgRatio = img.naturalWidth / img.naturalHeight;
+      const canvasRatio = cw / ch;
+      let drawW, drawH, drawX, drawY;
+
+      // Cover-fit on ALL screen sizes — fills edge to edge, crops overflow
+      if (canvasRatio > imgRatio) {
+        drawW = cw; drawH = cw / imgRatio;
+      } else {
+        drawH = ch; drawW = ch * imgRatio;
+      }
+      drawX = (cw - drawW) / 2;
+      drawY = (ch - drawH) / 2;
+      frameCtx.drawImage(img, drawX, drawY, drawW, drawH);
+    }
+
+    function onAllFramesLoaded() {
+      allLoaded = true;
+      loader.style.opacity = '0';
+      loader.style.transition = 'opacity 0.6s ease';
+      setTimeout(() => loader.style.display = 'none', 600);
+      drawFrame(0);
+      currentFrame = 0;
+    }
+
+    for (let i = 1; i <= frameCount; i++) {
+      const img = new Image();
+      img.src = `frames/frame_${String(i).padStart(4, '0')}.jpg`;
+      img.onload = () => {
+        loadedFrames++;
+        loaderBar.style.width = (loadedFrames / frameCount * 100) + '%';
+        if (loadedFrames === frameCount) onAllFramesLoaded();
+      };
+      img.onerror = () => {
+        loadedFrames++;
+        loaderBar.style.width = (loadedFrames / frameCount * 100) + '%';
+        if (loadedFrames === frameCount) onAllFramesLoaded();
+      };
+      frames.push(img);
+    }
+
+    // ─── ANNOTATION CARDS + SNAP-STOP ───
+    const cards = document.querySelectorAll('.annotation-card');
+    const SNAP_ZONES = [];
+    const HOLD_DURATION = 550;
+    let isSnapping = false;
+
+    cards.forEach(card => {
+      SNAP_ZONES.push({
+        show: parseFloat(card.dataset.show),
+        hide: parseFloat(card.dataset.hide),
+        snapped: false
+      });
+    });
+
+    function updateCards(progress) {
+      cards.forEach((card, i) => {
+        const zone = SNAP_ZONES[i];
+        const visible = progress >= zone.show && progress <= zone.hide;
+        card.classList.toggle('visible', visible);
+        if (visible && !zone.snapped && !isSnapping) {
+          zone.snapped = true;
+          isSnapping = true;
+          document.body.style.overflow = 'hidden';
+          setTimeout(() => {
+            document.body.style.overflow = '';
+            isSnapping = false;
+          }, HOLD_DURATION);
+        }
+        if (!visible) zone.snapped = false;
+      });
+    }
+
+    // ─── SCROLL HANDLER ───
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (!allLoaded) { ticking = false; return; }
+          const section = document.getElementById('scrollAnim');
+          const rect = section.getBoundingClientRect();
+          const scrollableH = section.offsetHeight - window.innerHeight;
+          const progress = Math.min(1, Math.max(0, -rect.top / scrollableH));
+          const frameIndex = Math.min(frameCount - 1, Math.floor(progress * frameCount));
+          if (frameIndex !== currentFrame) {
+            currentFrame = frameIndex;
+            drawFrame(frameIndex);
+          }
+          updateCards(progress);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // ─── SPECS COUNT-UP ───
+    function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+    function countUp(el, target, suffix, duration = 1800) {
+      const start = performance.now();
+      el.classList.add('counting');
+      function update(now) {
+        const elapsed = now - start;
+        const t = Math.min(elapsed / duration, 1);
+        const eased = easeOutExpo(t);
+        const val = eased * target;
+        el.textContent = (target % 1 === 0 ? Math.floor(val) : val.toFixed(1)) + suffix;
+        if (t < 1) requestAnimationFrame(update);
+        else { el.textContent = target + suffix; el.classList.remove('counting'); }
+      }
+      requestAnimationFrame(update);
+    }
+
+    const specObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const items = entry.target.querySelectorAll('.spec-item');
+          items.forEach((item, i) => {
+            setTimeout(() => {
+              const numEl = item.querySelector('.spec-number');
+              const target = parseFloat(item.dataset.target);
+              const suffix = item.dataset.suffix || '';
+              countUp(numEl, target, suffix);
+            }, i * 180);
+          });
+          specObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    specObserver.observe(document.getElementById('specs'));
+
+    // ─── TESTIMONIALS DRAG ───
+    const track = document.getElementById('testimonialsTrack');
+    let isDown = false, startX, scrollLeft;
+    track.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; });
+    track.addEventListener('mouseleave', () => isDown = false);
+    track.addEventListener('mouseup', () => isDown = false);
+    track.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX);
+    });
+  </script>
+</body>
+</html>
